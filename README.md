@@ -2,7 +2,8 @@
 Todos los comandos necesarios para aprobar el eJPT
 
 Recursos que te pueden interesar:
-[eJPT - Review](https://hacknotes.github.io/certificaciones/eJPTReview/) [Aprobar el eJPT a la primera](https://hacknotes.github.io/certificaciones/eJPTAprove/)
+- [eJPT - Review](https://hacknotes.github.io/certificaciones/eJPTReview/) 
+- [Aprobar el eJPT a la primera](https://hacknotes.github.io/certificaciones/eJPTAprove/)
 # Barrido de ping - Ping sweep
 ## Nmap
 ```sql
