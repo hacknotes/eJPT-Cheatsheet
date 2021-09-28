@@ -20,7 +20,7 @@ run autoroute -s 10.10.16.0/24
 ```
 # Password cracking
 ## John
-```sql
+```python
 john --wordlist=/usr/share/wordlists/rockyou.txt hashes.txt
 ```
 ## Online Tools
@@ -32,11 +32,11 @@ unshadow passwd shadow > unshadowed.txt
 ```
 # Fuzzing
 ## Nmap
-```sql
+```python
 nmap --script=http-enum -p80 10.10.14.16 -oN webScan
 ```
 ## wfuzz
-```sql
+```python
 wfuzz -c --hc=404 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -u https://10.10.14.15/FUZZ
 wfuzz -c --hc=404 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -u https://10.10.14.15/FUZZ.php
 ```
