@@ -60,7 +60,7 @@ hydra http://10.10.14.10/ http-post-form "/login.php:user=^USER^&password=^PASS^
 ```
 # SMB
 ## Enumeración de SMB
-```sql
+```python
 smbclient -L 10.10.14.12 -N
 smbmap -H 10.10.14.12 -u 'null'
 nmap --script=smb-vuln* -p445 10.10.14.15 -oN smbScan
@@ -72,7 +72,7 @@ smbclient //10.10.14.15/backups
 ```
 # FTP
 ## Enumeración de FTP
-```sql
+```python
 nmap --script=ftp-anon -p21 10.10.14.12
 ftp 10.10.14.12
 cd ..
@@ -82,7 +82,7 @@ cd ..
 hydra -l admin -P passlist.txt ftp://192.168.0.1
 hydra -L userlist.txt -P passlist.txt ftp://192.168.0.1
 ```
-# Enumeracíon de windows
+# Enumeración de windows
 ```sql
 dir /b/s "\*.conf*"
 dir /b/s "\*.txt*"
